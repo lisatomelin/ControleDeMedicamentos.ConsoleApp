@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloFornecedor.Fornecedor">
+    <Position X="2.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAQAAAAAAAIAAAAAAAQCAAAAgA=</HashCode>
+      <FileName>ModuloFornecedor\Fornecedor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloFuncionario.Funcionario">
+    <Position X="4.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAQAAAAAgA=</HashCode>
+      <FileName>ModuloFuncionario\Funcionario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloMedicamento.Medicamento">
+    <Position X="6.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEgA=</HashCode>
+      <FileName>ModuloMedicamento\Medicamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloPaciente.Paciente">
+    <Position X="2.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAQAAAAAgA=</HashCode>
+      <FileName>ModuloPaciente\Paciente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloReposicao.Reposicao">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAgA=</HashCode>
+      <FileName>ModuloReposicao\Reposicao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloRequisicao.Requisicao">
+    <Position X="6.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAgA=</HashCode>
+      <FileName>ModuloRequisicao\Requisicao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
