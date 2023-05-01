@@ -10,131 +10,48 @@ using ControleDeMedicamentos.ConsoleApp.ModuloPaciente;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
 {
-    public class TelaFornecedor : Tela
+    public class TelaFornecedor : TelaBase
     {
-        RepositorioFornecedor repositorioFornecedor;
-        RepositorioMedicamento repositorioMedicamento;
-        TelaMedicamento telaMedicamento = null;
-
-        public TelaFornecedor(RepositorioFornecedor repositorioFornecedor, 
-            RepositorioMedicamento repositorioMedicamento)
+        public TelaFornecedor(RepositorioFornecedor repositorioFornecedor)
         {
-            this.repositorioFornecedor = repositorioFornecedor;
-            this.repositorioMedicamento = repositorioMedicamento;
-            
+            this.repositorioBase = repositorioFornecedor;
+            nomeEntidade = "Fornecedor";
+            sufixo = "es";
         }
-
-       
-        public string ApresentarMenuFornecedor()
+        protected override void MostrarTabela(ArrayList registros)
         {
-            Console.Clear();
+            Console.WriteLine("{0, -10} | {1, -20} | {2, -20}", "Id", "Nome", "Telefone");
 
-            Console.WriteLine("Cadastro de Fornecedor \n");
-            Console.WriteLine("Digite 1 para Inserir Fornecedor");
-            Console.WriteLine("Digite 2 para Editar Fornecedor");
-            Console.WriteLine("Digite 3 para Visualizar Fornecedor");
-            Console.WriteLine("Digite 4 para Excluir Fornecedor");
+            Console.WriteLine("-------------------------------------------------------------------");
 
-            Console.WriteLine("Digite s para Sair");
-
-            string opcao = Console.ReadLine();
-
-            return opcao;
-        }
-
-        public void InserirNovoFornecedor()
-        {
-            MostrarCabecalho("Cadastro de Fornecedor", "Inserindo um novo Fornecedor...");
-
-            Fornecedor fornecedor = ObterFornecedor();
-
-            repositorioFornecedor.Inserir(fornecedor);
-
-            MostrarMensagem("Fornecedor inserido com sucesso!", ConsoleColor.Green);
-
-        }
-        public void EditarFornecedor()
-        {
-            MostrarCabecalho("Cadastro de Fornecedor", "Inserindo um novo fornecedor...");
-
-            VisualizarFornecedor(false);
-
-            Console.WriteLine();
-
-            Console.Write("Digite o id do fornecedor: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-
-            Fornecedor fornecedorAtualizado = ObterFornecedor();
-
-            repositorioFornecedor.Editar(id,fornecedorAtualizado);
-
-            MostrarMensagem("Fornecedor editado com sucesso!", ConsoleColor.Green);
-        }
-        public void VisualizarFornecedor(bool mostrarCabecalho)
-        {
-            if (mostrarCabecalho)
-                MostrarCabecalho("Cadastro de Fornecedor", "Visualizando Fornecedores já cadastrados...");
-
-            ArrayList fornecedores = repositorioFornecedor.SelecionarTodos();
-
-            if (fornecedores.Count == 0)
+            foreach (Fornecedor fornecedor in registros)
             {
-                MostrarMensagem("Nenhum Fornecedor cadastrado", ConsoleColor.DarkYellow);
-                return;
-            }
+                Console.WriteLine("{0, -10} | {1, -20} | {2, -20}", fornecedor.id, fornecedor.nome, fornecedor.telefone);
 
-            MostrarTabela(fornecedores);
-        }
-
-        public void ExcluirFornecedor()
-        {
-            Console.Clear();
-
-            Console.WriteLine("Cadastro de Fornecedor");
-
-            Console.WriteLine("Excluindo um fornecedor já cadastrado...");
-
-            Console.ReadLine();
-
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            Console.WriteLine("Fornecedor excluído com sucesso!");
-
-            Console.ResetColor();
-
-            Console.ReadLine();
-        }
-
-        private void MostrarTabela(ArrayList fornecedores)
-        {
-            Console.WriteLine("{0, -10} | {1, -40} | {2, -20}", "Id", "Razão Social", "CNPJ", "Telefone", "Medicamento");
-
-            Console.WriteLine("-------------------------------------------------------------------------");
-
-            foreach (Fornecedor fornecedor in fornecedores)
-            {
-                Console.WriteLine("{0, -10} | {1, -40} | {2, -20}", fornecedor.id, fornecedor.razaoSocial, fornecedor.CNPJ, fornecedor.telefone, fornecedor.medicamento.id);
             }
         }
-        private Fornecedor ObterFornecedor()
-        {
-            Console.Write("Digite o nome: ");
-            string razaoSocial = Console.ReadLine();
 
-            Console.Write("Digite o telefone: ");
+        protected override EntidadeBase ObterRegistro()
+        {
+            Console.WriteLine("Digite o nome: ");
+            string nome = Console.ReadLine();
+
+            Console.WriteLine("Digite o Telefone: ");
             string telefone = Console.ReadLine();
 
-            Console.Write("Digite o endereço: ");
-            string CNPJ = Console.ReadLine();
+            Console.WriteLine("Digite o email: ");
+            string email = Console.ReadLine();
 
-            Console.Write("Digite o id do Medicamento: ");
-            int idMedicamento = Convert.ToInt32(Console.ReadLine());
-            Medicamento medicamento = repositorioMedicamento.SelecionarPorId(idMedicamento);
+            Console.WriteLine("Digite a Cidade: ");
+            string cidade = Console.ReadLine();
 
+            Console.WriteLine("Digite o Estado: ");
+            string estado = Console.ReadLine();
 
-            Fornecedor fornecedor = new Fornecedor(razaoSocial, telefone, CNPJ, medicamento);
-
-            return fornecedor;
+            return new Fornecedor(nome, telefone, email, cidade, estado);
         }
     }
+
+
+
 }

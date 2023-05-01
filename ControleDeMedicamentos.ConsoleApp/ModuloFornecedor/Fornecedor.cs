@@ -1,4 +1,5 @@
-﻿using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
+﻿using ControleDeMedicamentos.ConsoleApp.Compartilhado;
+using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +8,33 @@ using System.Threading.Tasks;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
 {
-    public class Fornecedor
+    public class Fornecedor : EntidadeBase
     {
-        public int id;
-        public string razaoSocial;
-        public string CNPJ;
+        public string nome;
         public string telefone;
-        public string endereco;
-        public Medicamento medicamento;
+        public string email;
+        public string cidade;
+        public string estado;
 
-        public Fornecedor(string razaoSocial, string CNPJ, string telefone, Medicamento medicamento)
+        public Fornecedor(string nome, string telefone, string email, string cidade, string estado)
         {
-            this.razaoSocial = razaoSocial;
+            this.nome = nome;
             this.telefone = telefone;
-            this.CNPJ = CNPJ;
-            this.medicamento = medicamento;
+            this.email = email;
+            this.cidade = cidade;
+            this.estado = estado;
+        }
+
+        public override void AtualizarInformacoes(EntidadeBase registroAtualizado)
+        {
+            Fornecedor fornecedorAtualizado = (Fornecedor)registroAtualizado;
+
+            this.nome = fornecedorAtualizado.nome;
+            this.telefone = fornecedorAtualizado.telefone;
+            this.email = fornecedorAtualizado.email;
+            this.cidade = fornecedorAtualizado.cidade;
+            this.estado = fornecedorAtualizado.estado;
+
         }
     }
 }

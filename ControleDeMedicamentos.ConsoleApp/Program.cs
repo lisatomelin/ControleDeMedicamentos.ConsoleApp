@@ -12,191 +12,174 @@ namespace ControleDeMedicamentos.ConsoleApp
     {
         static void Main(string[] args)
         {
+            RepositorioRequisicaoSaida repositorioRequisicaoSaida = new RepositorioRequisicaoSaida(new ArrayList());
+            RepositorioRequisicaoEntrada repositorioRequisicaoEntrada = new RepositorioRequisicaoEntrada(new ArrayList());
             RepositorioFornecedor repositorioFornecedor = new RepositorioFornecedor(new ArrayList());
             RepositorioFuncionario repositorioFuncionario = new RepositorioFuncionario(new ArrayList());
             RepositorioMedicamento repositorioMedicamento = new RepositorioMedicamento(new ArrayList());
             RepositorioPaciente repositorioPaciente = new RepositorioPaciente(new ArrayList());
-            RepositorioRequisicao repositorioRequisicao = new RepositorioRequisicao(new ArrayList());
-            RepositorioReposicao repositorioReposicao = new RepositorioReposicao(new ArrayList());
 
-            TelaFornecedor telaFornecedor = new TelaFornecedor(repositorioFornecedor,repositorioMedicamento);
-            TelaPaciente telaPaciente = new TelaPaciente(repositorioPaciente);
-            TelaMedicamento telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
+            TelaFornecedor telaFornecedor = new TelaFornecedor(repositorioFornecedor);
             TelaFuncionario telaFuncionario = new TelaFuncionario(repositorioFuncionario);
-            TelaRequisicao telaRequisicao = new TelaRequisicao( repositorioFornecedor, repositorioMedicamento, repositorioFuncionario,repositorioPaciente, repositorioRequisicao);
-            TelaReposicao telaReposicao = new TelaReposicao(repositorioFornecedor, repositorioMedicamento, repositorioFuncionario, repositorioReposicao);
+            TelaPaciente telaPaciente = new TelaPaciente(repositorioPaciente);
+            TelaMedicamento telaMedicamento = new TelaMedicamento(repositorioMedicamento, telaFornecedor, repositorioFornecedor);
+            TelaRequisicaoEntrada telaRequisicaoEntrada = new TelaRequisicaoEntrada(repositorioRequisicaoEntrada, repositorioFuncionario, repositorioMedicamento, telaFuncionario, telaMedicamento);
+            TelaRequisicaoSaida telaRequisicaoSaida = new TelaRequisicaoSaida(repositorioRequisicaoSaida, repositorioFuncionario, repositorioMedicamento,
+            repositorioPaciente, telaFuncionario, telaMedicamento, telaPaciente);
 
-           
+
+            TelaPrincipal principal = new TelaPrincipal();
+
 
             while (true)
             {
-                TelaPrincipal telaPrincipal = new TelaPrincipal();
-
-                string opcao = telaPrincipal.ApresentarMenuPrincipal();
+                string opcao = principal.ApresentarMenuPrincipal();
 
                 if (opcao == "s")
                     break;
 
                 if (opcao == "1")
                 {
-                    string opcaoPaciente = telaPaciente.ApresentarMenuPaciente();
+                    string subMenu = telaFornecedor.ApresentarMenu();
 
-                    if (opcaoPaciente == "1")
+                    if (subMenu == "1")
                     {
-                        telaPaciente.InserirNovoPaciente();
+                        telaFornecedor.InserirNovoRegistro();
                     }
-                    else if (opcaoPaciente == "2")
+                    else if (subMenu == "2")
                     {
-                        telaPaciente.VisualizarPaciente(true);
+                        telaFornecedor.VisualizarRegistros(true);
                         Console.ReadLine();
                     }
-                    else if (opcaoPaciente == "3")
+                    else if (subMenu == "3")
                     {
-                        telaPaciente.EditarPaciente();
+                        telaFornecedor.EditarRegistro();
                     }
-                    else if (opcaoPaciente == "4")
+                    else if (subMenu == "4")
                     {
-                        telaPaciente.ExcluirPaciente();
+                        telaFornecedor.ExcluirRegistro();
                     }
-
-                    continue;
                 }
                 else if (opcao == "2")
                 {
-                    string opcaoMedicamento = telaMedicamento.ApresentarMenuMedicamento();
+                    string subMenu = telaFuncionario.ApresentarMenu();
 
-                    if (opcaoMedicamento == "1")
+                    if (subMenu == "1")
                     {
-                        telaMedicamento.InserirNovoMedicamento();
+                        telaFuncionario.InserirNovoRegistro();
                     }
-
-                    else if (opcaoMedicamento == "2")
+                    else if (subMenu == "2")
                     {
-                        telaMedicamento.EditarMedicamento();
-                    }
-                    else if (opcaoMedicamento == "3")
-                    {
-                        telaMedicamento.VisualizarMedicamento(true);
+                        telaFuncionario.VisualizarRegistros(true);
                         Console.ReadLine();
                     }
-                    else if (opcaoMedicamento == "4")
+                    else if (subMenu == "3")
                     {
-                        telaMedicamento.VisualizarMedicamentosComPoucasQuantidades();
+                        telaFuncionario.EditarRegistro();
+                    }
+                    else if (subMenu == "4")
+                    {
+                        telaFuncionario.ExcluirRegistro();
+                    }
+                }
+                else if (opcao == "3")
+                {
+                    string subMenu = telaPaciente.ApresentarMenu();
+
+                    if (subMenu == "1")
+                    {
+                        telaPaciente.InserirNovoRegistro();
+                    }
+                    else if (subMenu == "2")
+                    {
+                        telaPaciente.VisualizarRegistros(true);
                         Console.ReadLine();
                     }
-                    else if (opcaoMedicamento == "5")
+                    else if (subMenu == "3")
+                    {
+                        telaPaciente.EditarRegistro();
+                    }
+                    else if (subMenu == "4")
+                    {
+                        telaPaciente.ExcluirRegistro();
+                    }
+                }
+                else if (opcao == "4")
+                {
+                    string subMenu = telaMedicamento.ApresentarMenu();
+
+                    if (subMenu == "1")
+                    {
+                        telaMedicamento.InserirNovoRegistro();
+                    }
+                    else if (subMenu == "2")
+                    {
+                        telaMedicamento.VisualizarRegistros(true);
+                        Console.ReadLine();
+                    }
+                    else if (subMenu == "3")
+                    {
+                        telaMedicamento.EditarRegistro();
+                    }
+                    else if (subMenu == "4")
+                    {
+                        telaMedicamento.ExcluirRegistro();
+                    }
+                    else if (subMenu == "5")
+                    {
+                        telaMedicamento.VisualizarMedicamentosMaisRetirados();
+                        Console.ReadLine();
+                    }
+                    else if (subMenu == "6")
                     {
                         telaMedicamento.VisualizarMedicamentosEmFalta();
                         Console.ReadLine();
                     }
-                    else if (opcaoMedicamento == "6")
-                    {
-                        telaMedicamento.ExcluirMedicamento();
-                    }
-
-                    continue;
-
-                }
-                else if (opcao == "3")
-                {
-                    string opcaoFornecedor = telaFornecedor.ApresentarMenuFornecedor();
-
-                    if (opcaoFornecedor == "1")
-                    {
-                        telaFornecedor.InserirNovoFornecedor();
-                    }
-
-                    else if (opcaoFornecedor == "2")
-                    {
-                        telaFornecedor.EditarFornecedor();
-                    }
-                    else if (opcaoFornecedor == "3")
-                    {
-                        telaFornecedor.VisualizarFornecedor(true);
-                        Console.ReadLine();
-                    }
-                    else if (opcaoFornecedor == "4")
-                    {
-                        telaFornecedor.ExcluirFornecedor();
-                    }
-
-                    continue;
-                }
-                else if (opcao == "4")
-                {
-                    string opcaoFuncionario = telaFuncionario.ApresentarMenuFuncionario();
-
-                    if (opcaoFuncionario == "1")
-                    {
-                        telaFuncionario.InserirNovoFuncionario();
-                    }
-
-                    else if (opcaoFuncionario == "2")
-                    {
-                        telaFuncionario.EditarFuncionario();
-                    }
-                    else if (opcaoFuncionario == "3")
-                    {
-                        telaFuncionario.VisualizarFuncionario(true);
-                        Console.ReadLine();
-                    }
-                    else if (opcaoFuncionario == "4")
-                    {
-                        telaFuncionario.ExcluirFuncionario();
-                    }
-
-                    continue;
 
                 }
                 else if (opcao == "5")
                 {
-                    string opcaoRequisicao = telaRequisicao.ApresentarMenuRequisicao();
+                    string subMenu = telaRequisicaoEntrada.ApresentarMenu();
 
-                    if (opcaoRequisicao == "1")
+                    if (subMenu == "1")
                     {
-                        telaRequisicao.InserirNovaRequisicao();
+                        telaRequisicaoEntrada.InserirNovoRegistro();
                     }
-
-                    else if (opcaoRequisicao == "2")
+                    else if (subMenu == "2")
                     {
-                        telaRequisicao.EditarRequisicao();
-                    }
-                    else if (opcaoRequisicao == "3")
-                    {
-                        telaRequisicao.VisualizarRequisicao(true);
+                        telaRequisicaoEntrada.VisualizarRegistros(true);
                         Console.ReadLine();
                     }
-                    else if (opcaoRequisicao == "4")
+                    else if (subMenu == "3")
                     {
-                        telaRequisicao.ExcluirRequisicao();
+                        telaRequisicaoEntrada.EditarRegistro();
                     }
-
-                    continue;
+                    else if (subMenu == "4")
+                    {
+                        telaRequisicaoEntrada.ExcluirRegistro();
+                    }
                 }
                 else if (opcao == "6")
                 {
-                    string opcaoReposicao = telaReposicao.ApresentarMenuReposicao();
+                    string subMenu = telaRequisicaoSaida.ApresentarMenu();
 
-                    if (opcaoReposicao == "1")
+                    if (subMenu == "1")
                     {
-                        telaReposicao.InserirNovaReposicao();
+                        telaRequisicaoSaida.InserirNovoRegistro();
                     }
-
-                    else if (opcaoReposicao == "2")
+                    else if (subMenu == "2")
                     {
-                        telaReposicao.EditarReposicao();
-                    }
-                    else if (opcaoReposicao == "3")
-                    {
-                        telaReposicao.VisualizarReposicao(true);
+                        telaRequisicaoSaida.VisualizarRegistros(true);
                         Console.ReadLine();
                     }
-                    else if (opcaoReposicao == "4")
+                    else if (subMenu == "3")
                     {
-                        telaReposicao.ExcluirReposicao();
+                        telaRequisicaoSaida.EditarRegistro();
                     }
-
-                    continue;
+                    else if (subMenu == "4")
+                    {
+                        telaRequisicaoSaida.ExcluirRegistro();
+                    }
                 }
             }
         }

@@ -6,59 +6,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ControleDeMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
 {
-    public class RepositorioMedicamento
+    public partial class RepositorioMedicamento : RepositorioBase
     {
-        private ArrayList listaMedicamentos;
-        private int contadorMedicamentos = 0;
-
-        public RepositorioMedicamento(ArrayList lista)
+        public RepositorioMedicamento(ArrayList listaMedicamentos)
         {
-            listaMedicamentos = lista;
+            this.listaRegistros = listaMedicamentos;
         }
 
-
-        public void Inserir(Medicamento medicamento)
+        public override Medicamento SelecionarPorId(int id)
         {
-            contadorMedicamentos++;
-            medicamento.id = contadorMedicamentos;
-            listaMedicamentos.Add(medicamento);
+            return (Medicamento)base.SelecionarPorId(id);
         }
-        public void Editar(int id, Medicamento medicamentoAtualizado)
+        public ArrayList SelecionarMedicamentosMaisRetirados()
         {
-            Medicamento medicamento = SelecionarPorId(id);
+            Medicamento[] medicamentos = new Medicamento[listaRegistros.Count];
 
-            medicamento.nome = medicamentoAtualizado.nome;
-            medicamento.descricao = medicamentoAtualizado.descricao;
-            medicamento.fornecedor = medicamentoAtualizado.fornecedor;
-             
-        }
-        public void Excluir(int id)
-        {
-            Medicamento medicamento = SelecionarPorId(id);
-
-            listaMedicamentos.Remove(medicamento);
-        }
-        public Medicamento SelecionarPorId(int id)
-        {
-            Medicamento medicamentoSelecionado = null;
-
-            foreach (Medicamento m in listaMedicamentos)
+            int posicao = 0;
+            foreach (Medicamento m in listaRegistros)
             {
-                if (m.id == id)
-                {
-                    medicamentoSelecionado = m;
-                    break;
-                }
+                medicamentos[posicao++] = m;
+
             }
 
-            return medicamentoSelecionado;
+            Array.Sort(medicamentos, new ComparadorMedicamentosRetirados());
+
+            return new ArrayList(medicamentos);
         }
-        public ArrayList SelecionarTodos()
+        public ArrayList SelecionarMedicamentosEmFalta()
         {
-            return listaMedicamentos;
+            ArrayList listaMedicamentosEmFalta = new ArrayList();
+
+            foreach (Medicamento m in listaRegistros)
+            {
+                if (m.quantidade == 0)
+                    listaMedicamentosEmFalta.Add(m);
+
+
+            }
+
+            return listaMedicamentosEmFalta;
         }
     }
 }

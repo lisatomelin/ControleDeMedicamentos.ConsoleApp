@@ -11,170 +11,110 @@ using ControleDeMedicamentos.ConsoleApp.ModuloFornecedor;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
 {
-    public class TelaMedicamento : Tela
+    public class TelaMedicamento : TelaBase
     {
-        RepositorioFornecedor repositorioFornecedor;
-        RepositorioMedicamento repositorioMedicamento;
-        TelaFornecedor telaFornecedor = null;
+        private TelaFornecedor telaFornecedor;
+        private RepositorioFornecedor repositorioFornecedor;
+        private RepositorioMedicamento repositorioMedicamento;
 
-        public TelaMedicamento(RepositorioMedicamento repositorioMedicamento, RepositorioFornecedor repositorioFornecedor)
+
+        public TelaMedicamento(RepositorioMedicamento repositorioMedicamento, TelaFornecedor telaFornecedor, RepositorioFornecedor repositorioFornecedor)
         {
+            nomeEntidade = "Medicamento";
+            sufixo = "s";
+            this.repositorioBase = repositorioMedicamento;
             this.repositorioMedicamento = repositorioMedicamento;
+            this.telaFornecedor = telaFornecedor;
             this.repositorioFornecedor = repositorioFornecedor;
-            
-            
         }
-       
 
-        public string ApresentarMenuMedicamento()
+        public override string ApresentarMenu()
         {
             Console.Clear();
 
-            Console.WriteLine("Cadastro de Medicamento \n");
-            Console.WriteLine("Digite 1 para Inserir Medicamento");
-            Console.WriteLine("Digite 2 para Editar Medicamento");
-            Console.WriteLine("Digite 3 para Visualizar Medicamento");
-            Console.WriteLine("Digite 4 para Visualizar Medicamentos com pouca quantidade: ");
-            Console.WriteLine("Digite 5 para Visualizar Medicamentos em falta: ");
-            Console.WriteLine("Digite 6 para Excluir Medicamento");
+            Console.WriteLine($"Cadastro de {nomeEntidade}{sufixo} \n");
 
+            Console.WriteLine($"Digite 1 para Inserir {nomeEntidade}");
+            Console.WriteLine($"Digite 2 para Visualizar {nomeEntidade}{sufixo}");
+            Console.WriteLine($"Digite 3 para Editar {nomeEntidade}{sufixo}");
+            Console.WriteLine($"Digite 4 para Excluir {nomeEntidade}{sufixo}");
+            Console.WriteLine($"Digite 5 para Visualizar {nomeEntidade}{sufixo} mais Retirados");
+            Console.WriteLine($"Digite 6 para Visualizar {nomeEntidade}{sufixo} em falta");
             Console.WriteLine("Digite s para Sair");
 
             string opcao = Console.ReadLine();
 
             return opcao;
         }
-
-        public void InserirNovoMedicamento()
+        protected override void MostrarTabela(ArrayList registros)
         {
-            MostrarCabecalho("Cadastro de Medicamento", "Inserindo um novo medicamento...");
+            Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20} | {5, - 20} | {6, - 20} | {7, - 20}", "Id", "Nome", "Descrição", "Lote", "Data de Validade",
+                "Fornecedor", "Quantidade", "Quantidade Retiradas");
 
-            Medicamento medicamento = ObterMedicamento();
+            Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------");
 
-            repositorioMedicamento.Inserir(medicamento);
-
-            MostrarMensagem("Medicamento inserido com sucesso!", ConsoleColor.Green);
-        }
-
-        public void EditarMedicamento()
-        {
-            MostrarCabecalho("Cadastro de Medicamento", "Inserindo um novo medicamento...");
-
-            VisualizarMedicamento(false);
-
-            Console.WriteLine();
-
-            Console.Write("Digite o id do Medicamento: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-
-            Medicamento medicamentoAtualizado = ObterMedicamento();
-
-            repositorioMedicamento.Editar(id, medicamentoAtualizado);
-
-            MostrarMensagem("Medicamento editado com sucesso!", ConsoleColor.Green);
-        }
-
-        public void VisualizarMedicamento(bool mostrarCabecalho)
-        {
-            if (mostrarCabecalho)
-                MostrarCabecalho("Cadastro de Medicamento", "Visualizando Medicamentos já cadastrados...");
-
-            ArrayList medicamentos = repositorioMedicamento.SelecionarTodos();
-
-            if (medicamentos.Count == 0)
+            foreach (Medicamento medicamento in registros)
             {
-                MostrarMensagem("Nenhum medicamento cadastrado", ConsoleColor.DarkYellow);
+                Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20} | {5, - 20} | {6, - 20} | {7, - 20}\"", medicamento.id, medicamento.nome, medicamento.descricao, medicamento.lote, medicamento.datavalidade, medicamento.fornecedor,
+                    medicamento.fornecedor.nome, medicamento.quantidade, medicamento.quantidadeRequisicoesSaida);
+
+            }
+        }
+
+        protected override EntidadeBase ObterRegistro()
+        {
+            telaFornecedor.VisualizarRegistros(false);
+
+            Console.WriteLine("Digite o nome: ");
+            string nome = Console.ReadLine();
+
+            Console.WriteLine("Digite a Descrição: ");
+            string descricao = Console.ReadLine();
+
+            Console.WriteLine("Digite o lote: ");
+            string lote = Console.ReadLine();
+
+            Console.WriteLine("Digite a Data de Validade: ");
+            DateTime datavalidade = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Digite o Id do Fornecedor ");
+            int idFornecedor = Convert.ToInt32(Console.ReadLine());
+
+            Fornecedor fornecedor = repositorioFornecedor.SelecionarPorId(idFornecedor);
+
+
+            return new Medicamento(nome, descricao, lote, datavalidade, fornecedor);
+        }
+
+
+
+        public void VisualizarMedicamentosMaisRetirados()
+        {
+            MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Visualizando medicamentos mais retirados...");
+
+            ArrayList medicamentosMaisRetirados = repositorioMedicamento.SelecionarMedicamentosMaisRetirados();
+
+            if (medicamentosMaisRetirados.Count == 0)
+            {
+                MostrarMensagem("Nenhum registro cadastrado", ConsoleColor.DarkYellow);
                 return;
             }
 
-            MostrarTabela(medicamentos);
-        }
-        public void VisualizarMedicamentosComPoucasQuantidades()
-        {
-            MostrarCabecalho("Cadastro de Medicamento", "Visualizando Medicamentos com pouca quantidade...");
-
-            ArrayList medicamentos = repositorioMedicamento.SelecionarTodos();
-
-            Console.Write("Quantidade mínima: ");
-            int quantidadeMinima = int.Parse(Console.ReadLine());
-
-            foreach (Medicamento medicamento in medicamentos)
-            {
-                if (medicamento.quantidade < quantidadeMinima)
-                {
-                    Console.WriteLine(medicamento.nome + " - " + medicamento.quantidade);
-                }
-            }
+            MostrarTabela(medicamentosMaisRetirados);
         }
         public void VisualizarMedicamentosEmFalta()
         {
-            MostrarCabecalho("Cadastro de Medicamento", "Visualizando Medicamentos em falta...");
+            MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Visualizando medicamentos em falta...");
 
-            ArrayList medicamentos = repositorioMedicamento.SelecionarTodos();
-            int quantidade = 0;
-            
-            foreach (Medicamento medicamento in medicamentos)
+            ArrayList medicamentosEmFalta = repositorioMedicamento.SelecionarMedicamentosEmFalta();
+
+            if (medicamentosEmFalta.Count == 0)
             {
-                if (medicamento.quantidade == 0)
-                {
-                    Console.WriteLine("O medicamento: " + medicamento.nome + " esta em falta " );
-                }
+                MostrarMensagem("Nenhum registro cadastrado", ConsoleColor.DarkYellow);
+                return;
             }
+
+            MostrarTabela(medicamentosEmFalta);
         }
-        private void MostrarTabela(ArrayList medicamentos)
-        {
-            Console.WriteLine("{0, -10} | {1, -40} | {2, -20}", "Id", "Nome", "Quantidade", "Descrição", "Id do Fornecedor");
-
-            Console.WriteLine("-------------------------------------------------------------------------");
-
-            foreach (Medicamento medicamento in medicamentos)
-            {
-                Console.WriteLine("{0, -10} | {1, -40} | {2, -20}", medicamento.id,  medicamento.nome, medicamento.quantidade, medicamento.descricao, medicamento.fornecedor.id); 
-                    
-            }
-        }
-
-        public void ExcluirMedicamento()
-        {
-
-            Console.Clear();
-
-            Console.WriteLine("Cadastro de Medicamento");
-
-            Console.WriteLine("Excluindo um Medicamento já cadastrado...");
-
-            Console.ReadLine();
-
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            Console.WriteLine("Medicamento excluído com sucesso!");
-
-            Console.ResetColor();
-
-            Console.ReadLine();
-        }
-        private Medicamento ObterMedicamento()
-        {
-            Console.Write("Digite o nome: ");
-            string nome = Console.ReadLine();
-
-            Console.Write("Digite a descrição do medicamento: ");
-            string descricao = Console.ReadLine();
-
-            Console.Write("Digite quantidade do medicamento: ");
-            int quantidade = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Digite o id do Fornecedor: ");
-            int idFornecedor = Convert.ToInt32(Console.ReadLine());
-            Fornecedor fornecedor = repositorioFornecedor.SelecionarPorId(idFornecedor);
-
-            Medicamento medicamento = new Medicamento(nome, descricao, quantidade, fornecedor);
-
-            return medicamento;
-        }
-
-
-
-
     }
 }

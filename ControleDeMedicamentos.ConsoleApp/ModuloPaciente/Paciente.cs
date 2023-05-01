@@ -7,18 +7,23 @@ using ControleDeMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
 {
-    public class Paciente
+    public class Paciente : EntidadeBase
     {
-        public int id;
         public string nome;
-        public string telefone;
-        public string endereco;
+        public string cartaoSUS;
 
-        public Paciente(string nome, string telefone, string endereco)
+        public Paciente(string nome, string cartaoSUS)
         {
             this.nome = nome;
-            this.telefone = telefone;
-            this.endereco = endereco;
+            this.cartaoSUS = cartaoSUS;
+        }
+
+        public override void AtualizarInformacoes(EntidadeBase registroAtualizado)
+        {
+            Paciente pacienteAtualizado = (Paciente)registroAtualizado;
+
+            this.nome = pacienteAtualizado.nome;
+            this.cartaoSUS = pacienteAtualizado.cartaoSUS;
         }
     }
 }

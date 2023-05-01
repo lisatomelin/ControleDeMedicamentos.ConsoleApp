@@ -1,50 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloFornecedor.Fornecedor">
-    <Position X="2.5" Y="1.25" Width="1.5" />
+    <Position X="7.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIAAAAAQAAAAAAAIAAAAAAAQCAAAAgA=</HashCode>
+      <HashCode>AQAACAAAAAAAAIAgAAAAAAAAAAAAgAAAAAAAAAAgAAA=</HashCode>
       <FileName>ModuloFornecedor\Fornecedor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloFuncionario.Funcionario">
-    <Position X="4.25" Y="1.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAQAAAAAgA=</HashCode>
-      <FileName>ModuloFuncionario\Funcionario.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloMedicamento.Medicamento">
-    <Position X="6.75" Y="1.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEgA=</HashCode>
-      <FileName>ModuloMedicamento\Medicamento.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloPaciente.Paciente">
-    <Position X="2.5" Y="4.5" Width="1.5" />
+    <Position X="7.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAQAAAAAgA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAgAAA=</HashCode>
       <FileName>ModuloPaciente\Paciente.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloReposicao.Reposicao">
-    <Position X="4.5" Y="4.5" Width="1.5" />
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloMedicamento.Medicamento">
+    <Position X="13.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAgA=</HashCode>
-      <FileName>ModuloReposicao\Reposicao.cs</FileName>
+      <HashCode>AQAAAAAAAEAAAQAAAQAAAAAAAAIACAAAAAAAAAAgFgA=</HashCode>
+      <FileName>ModuloMedicamento\Medicamento.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloRequisicao.Requisicao">
-    <Position X="6.5" Y="4.5" Width="1.5" />
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloFuncionario.Funcionario">
+    <Position X="10.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAgA=</HashCode>
-      <FileName>ModuloRequisicao\Requisicao.cs</FileName>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgEAA=</HashCode>
+      <FileName>ModuloFuncionario\Funcionario.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="System.Object" Collapsed="true">
-    <Position X="4.25" Y="0.75" Width="1.5" />
-    <TypeIdentifier />
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloReposicao.RequisicaoEntrada">
+    <Position X="10" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAQCIAgEAA=</HashCode>
+      <FileName>ModuloRequisicaoEntrada\RequisicaoEntrada.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.ModuloRequisicao.RequisicaoSaida">
+    <Position X="13.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAQCAAgEAg=</HashCode>
+      <FileName>ModuloRequisicaoSaida\RequisicaoSaida.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.Compartilhado.EntidadeBase">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAgA=</HashCode>
+      <FileName>Compartilhado\EntidadeBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.Compartilhado.RepositorioBase">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAMAAAAAQAAAAACAAABAAAAAAEQAAA=</HashCode>
+      <FileName>Compartilhado\RepositorioBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeMedicamentos.ConsoleApp.Compartilhado.TelaBase">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAACAAAAACAAEAAAAAAACAYCAAAAAAAAAAABABAABA=</HashCode>
+      <FileName>Compartilhado\TelaBase.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

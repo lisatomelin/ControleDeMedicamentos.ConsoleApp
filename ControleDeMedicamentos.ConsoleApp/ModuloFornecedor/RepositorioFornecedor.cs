@@ -6,61 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ControleDeMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
 {
-    public class RepositorioFornecedor
+    public class RepositorioFornecedor : RepositorioBase
     {
-        private ArrayList listaFornecedores;
-        private int contadorFornecedores = 0;
-
-        public RepositorioFornecedor(ArrayList lista)
+        public RepositorioFornecedor(ArrayList listaFornecedor)
         {
-            listaFornecedores = lista;
+            this.listaRegistros = listaFornecedor;
         }
 
-
-        public void Inserir(Fornecedor fornecedor)
+        public override Fornecedor SelecionarPorId(int id)
         {
-            contadorFornecedores++;
-            fornecedor.id = contadorFornecedores;
-            listaFornecedores.Add(fornecedor);
+            return (Fornecedor)base.SelecionarPorId(id);
         }
-        public void Editar(int id, Fornecedor fornecedorAtualizado)
-        {
-            Fornecedor fornecedor = SelecionarPorId(id);
-
-            fornecedor.razaoSocial = fornecedorAtualizado.razaoSocial;
-            fornecedor.telefone = fornecedorAtualizado.telefone;
-            fornecedor.CNPJ = fornecedorAtualizado.CNPJ;
-            fornecedor.medicamento = fornecedorAtualizado.medicamento;
-        }
-        public void Excluir(int id)
-        {
-            Fornecedor fornecedor = SelecionarPorId(id);
-
-            listaFornecedores.Remove(fornecedor);
-        }
-        public Fornecedor SelecionarPorId(int id)
-        {
-            Fornecedor fornecedorSelecionado = null;
-
-            foreach (Fornecedor fr in listaFornecedores)
-            {
-                if (fr.id == id)
-                {
-                    fornecedorSelecionado = fr;
-                    break;
-                }
-            }
-
-            return fornecedorSelecionado;
-        }
-        public ArrayList SelecionarTodos()
-        {
-            return listaFornecedores;
-        }
-
-       
     }
 }
